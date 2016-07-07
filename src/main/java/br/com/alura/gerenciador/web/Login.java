@@ -5,10 +5,10 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.Usuario;
 import br.com.alura.gerenciador.dao.UsuarioDAO;
@@ -31,8 +31,8 @@ public class Login extends HttpServlet{
 			writer.println("<html><body>Usuario Invalido!</body></html>");
 		}
 		else{
-			Cookie cookie = new Cookie("usuario.logado", usuario.getEmail());
-			resp.addCookie(cookie);
+			HttpSession session = req.getSession();
+			session.setAttribute("usuario.logado", usuario);
 			writer.println("<html><body>Usuario logado "+usuario.getEmail()+"</body></html>");
 		}
 	}
