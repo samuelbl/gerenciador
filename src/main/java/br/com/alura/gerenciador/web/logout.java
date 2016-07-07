@@ -2,6 +2,7 @@ package br.com.alura.gerenciador.web;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ public class logout extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getSession().removeAttribute("usuario.logado");
-		resp.getWriter().println("<html><body> Deslogado com sucesso </body> </html>");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/Paginas/logout.html");
+		dispatcher.forward(req, resp);
+		
 	}
 	
 
