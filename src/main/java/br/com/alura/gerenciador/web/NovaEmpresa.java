@@ -1,33 +1,21 @@
 package br.com.alura.gerenciador.web;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.Empresa;
 import br.com.alura.gerenciador.dao.EmpresaDAO;
 
-@WebServlet("/novaEmpresa")
-public class NovaEmpresa extends HttpServlet{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class NovaEmpresa implements Tarefa{
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		@Override
+	public String executa(HttpServletRequest req, HttpServletResponse resp) {
 		String parameter = req.getParameter("nome");
 		Empresa empresa = new Empresa(parameter);
 		new EmpresaDAO().adiciona(empresa);
 		req.setAttribute("empresa", empresa);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/Paginas/novaEmpresa.jsp");
-		dispatcher.forward(req, resp);
+		return "/WEB-INF/Paginas/novaEmpresa.jsp";
 	}
 	
 }
